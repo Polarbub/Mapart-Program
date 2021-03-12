@@ -7,7 +7,7 @@ using namespace nbt;
 
 int main() {
 	std::cout << "1";
-    std::ifstream input("Test.litematic");
+    //std::ifstream input("Test.litematic");
 	std::cout << "1";
     nbt::tags::compound_tag root;
 	std::cout << "2";
@@ -17,4 +17,5 @@ int main() {
 	std::cout << "4";
     output << nbt::contexts::mojangson << root;
 	std::cout << "5";
+	return 0;
 }
