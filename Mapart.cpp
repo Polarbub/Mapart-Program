@@ -2,6 +2,12 @@
 #include "NBTlib.hpp"
 
 int main() {
-    std::vector<int> nbt = nbt::readNbt("Test");
+    try{
+        std::vector<int> nbt = nbt::readNbt("Test");
+    } catch (std::string e) {
+        std::cout << e << std::endl;
+    }
+    
+
 	return 0;
 }
