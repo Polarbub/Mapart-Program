@@ -10,8 +10,8 @@ namespace nbt {
             std::string out = "";
             int repeat = 0;
             
-            while (repeat >= nbt[1]) {
-                char c = nbt[repeat + 2];
+            while (repeat >= nbt[2]) {
+                char c = nbt[repeat + 3];
                 out.push_back(c);
                 repeat++;
             }
@@ -46,10 +46,14 @@ namespace nbt {
         }
     }
 
-    std::string readStringName(std::vector<int> nbt, std::string name) {
+    std::string readStringByName(std::vector<int> nbt, std::string name) {
         int offset = 0;
         if(nbt[0 + offset] == 8 && nbt[1 + offset] == 0) {
-            
+            std::vector<int> nbtm = nbt;
+            nbtm.erase(nbtm.begin() + offset);
+            std::string tagname = internal::getName(nbtm);
+        } else {
+            nbt = internal::getNextTag(nbt);
         }
     }
 
