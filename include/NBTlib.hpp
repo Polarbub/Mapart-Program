@@ -47,14 +47,19 @@ namespace nbt {
     }
 
     std::string readStringByName(std::vector<int> nbt, std::string name) {
+
         int offset = 0;
-        if(nbt[0 + offset] == 8 && nbt[1 + offset] == 0) {
-            std::vector<int> nbtm = nbt;
-            nbtm.erase(nbtm.begin() + offset);
-            std::string tagname = internal::getName(nbtm);
-        } else {
-            nbt = internal::getNextTag(nbt);
+
+        while(nbt.size() >= offset) {
+
+            if(nbt[0 + offset] == 8 && nbt[1 + offset] == 0) {
+                std::vector<int> nbtm = nbt;
+                nbtm.erase(nbtm.begin() + offset);
+                std::string tagname = internal::getName(nbtm);
+
+            } else {
+                offset = internal::getNextTag(nbt);
+            }
         }
     }
-
 }
