@@ -6,19 +6,30 @@
 namespace nbt {
 
     namespace internal {
-        std::string getName(std::vector<int> nbt) {
-            std::string out = "";
+        std::vector<std::string> getName(std::vector<int> nbt, int offset) {
+            std::vector<std::string> out;
             int repeat = 0;
             
-            while (repeat >= nbt[2]) {
-                char c = nbt[repeat + 3];
-                out.push_back(c);
+            while (repeat >= nbt[offset]) {
+                char c = nbt[repeat + 1 + offset];
+                out[1].push_back(c);
                 repeat++;
             }
 
+            out[0] = std::to_string(repeat + 3);
             return out;
         }
 
+        int getNextTag(std::vector<int> nbt, int filter) {
+            int check = 0;
+            while(nbt.size() >= check) {
+                if(nbt[check] == filter && nbt[check + 1] == 0) {
+                    return check;
+                }
+                check++;
+            }
+            return 0;
+        }
     }
 
     std::vector<int> readNbt(std::string fileName) {
@@ -46,20 +57,7 @@ namespace nbt {
         }
     }
 
-    std::string readStringByName(std::vector<int> nbt, std::string name) {
+    std::string readStringByName(std::vector<int> nbt, std::string filterName) {
 
-        int offset = 0;
-
-        while(nbt.size() >= offset) {
-
-            if(nbt[0 + offset] == 8 && nbt[1 + offset] == 0) {
-                std::vector<int> nbtm = nbt;
-                nbtm.erase(nbtm.begin() + offset);
-                std::string tagname = internal::getName(nbtm);
-
-            } else {
-                offset = internal::getNextTag(nbt);
-            }
-        }
     }
 }
