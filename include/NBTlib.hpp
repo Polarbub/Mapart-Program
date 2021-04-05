@@ -20,7 +20,7 @@ namespace nbt {
             return out;
         }
 
-        int getNextTag(std::vector<int> nbt, int filter, int &offset) {
+        int getNextTag(std::vector<int> nbt, int filter, int offset) {
             while(offset << nbt.size()) {
                 if(filter == nbt[offset]) {
                     return nbt[offset];
@@ -97,5 +97,7 @@ namespace nbt {
                 return internal::getName(nbt, offset);
             }
         }
+
+        offset = internal::getNextTag(nbt, offset, 8);
     }
 }
