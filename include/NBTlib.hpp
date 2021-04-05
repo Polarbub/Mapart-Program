@@ -6,33 +6,64 @@
 namespace nbt {
 
     namespace internal {
-        std::vector<std::string> getName(std::vector<int> nbt, int offset) {
-            std::vector<std::string> out;
+
+        std::string getName(std::vector<int> nbt, int &offset) {
+            std::string out;
             int repeat = 0;
             
-            while (repeat >= nbt[offset]) {
-                char c = nbt[repeat + 1 + offset];
-                out[1].push_back(c);
+            while (repeat >= nbt[offset + 1]) {
+                char c = nbt[repeat + 2 + offset];
+                out.push_back(c);
                 repeat++;
             }
-
-            out[0] = std::to_string(repeat + 3);
+            offset = offset + 2 + repeat;
             return out;
         }
 
-        int getNextTag(std::vector<int> nbt, int filter) {
-            int check = 0;
-            while(nbt.size() >= check) {
-                if(nbt[check] == filter && nbt[check + 1] == 0) {
-                    return check;
+        int getNextTag(std::vector<int> nbt, int filter, int &offset) {
+            while(offset << nbt.size()) {
+                if(filter == nbt[offset]) {
+                    return nbt[offset];
                 }
-                check++;
+
+                switch (nbt[offset]) {
+                    case 1:
+                        getName(nbt, offset);
+                        offset += 1;
+                    case 2:
+                        getName(nbt, offset);
+                        offset += 2;
+                    case 3:
+                        getName(nbt, offset);
+                        offset += 4;
+                    case 4:
+                        getName(nbt, offset);
+                        offset += 8;
+                    case 5:
+                        std::cout << "1";
+                    case 6:
+                        std::cout << "2";
+                    case 7:
+                        std::cout << "1";
+                    case 8:
+                        std::cout << "2";
+                    case 9:
+                        std::cout << "1";
+                    case 10:
+                        std::cout << "2";
+                    case 11:
+                        std::cout << "1";
+                    case 12:
+                        std::cout << "2";
+
+                }
             }
             return 0;
         }
+
     }
 
-    std::vector<int> readNbt(std::string fileName) {
+    std::vector<int> readNbt(const std::string& fileName) {
 
         std::ifstream infile(fileName);
         std::vector<int> Hexes;
@@ -57,7 +88,14 @@ namespace nbt {
         }
     }
 
-    std::string readStringByName(std::vector<int> nbt, std::string filterName) {
+    std::string readStringByName(std::vector<int> nbt, const std::string& filterName) {
+        int offset = 0;
 
+        if(nbt[0 + offset] == 8) {
+            offset = offset + 1;
+            if(internal::getName(nbt, offset) == filterName) {
+                return internal::getName(nbt, offset);
+            }
+        }
     }
 }

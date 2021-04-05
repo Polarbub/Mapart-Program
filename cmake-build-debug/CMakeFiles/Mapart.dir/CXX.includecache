@@ -1,0 +1,24 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/NBTlib.hpp
+iostream
+-
+fstream
+-
+vector
+-
+string
+-
+
+/cygdrive/e/saves/code/c++/Mapart/Mapart.cpp
+iostream
+-
+NBTlib.hpp
+/cygdrive/e/saves/code/c++/Mapart/NBTlib.hpp
+
