@@ -1,3 +1,0 @@
-/cygdrive/e/saves/code/c++/Mapart/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/cygdrive/e/saves/code/c++/Mapart/cmake-build-debug/CMakeFiles/edit_cache.dir
-/cygdrive/e/saves/code/c++/Mapart/cmake-build-debug/CMakeFiles/Mapart.dir

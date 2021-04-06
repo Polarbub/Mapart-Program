@@ -1,1 +1,0 @@
-/usr/bin/c++.exe -g  -Wl,--enable-auto-import CMakeFiles/Mapart.dir/Mapart.cpp.o  -o Mapart.exe -Wl,--out-implib,libMapart.dll.a -Wl,--major-image-version,0,--minor-image-version,0 
