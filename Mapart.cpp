@@ -3,11 +3,11 @@
 
 int main() {
     try{
-        std::vector<int> nbt = nbt::readNbt("Test");
+        std::vector<char> nbt = nbt::readNbt("Test");
     } catch (std::string e) {
         std::cout << e << std::endl;
     }
-    
+    long test = 134121;
 
 	return 0;
 }
