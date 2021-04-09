@@ -26,10 +26,6 @@ namespace nbt {
             return *((int*) &b);
         }
 
-        void doListTag(const std::vector<char> &nbt, int &offset) {
-
-        }
-
         int getNextTag(const std::vector<char> &nbt, const int &filter, int &offset) {
             while(offset << nbt.size()) {
                 if(filter == nbt[offset]) {
@@ -62,12 +58,50 @@ namespace nbt {
                         getName(nbt, offset);
                     case 9:
                         std::cout << "STUPID LIST TAG";
+                        getName(nbt, offset);
+                        offset += 1;
+                        switch (nbt[offset - 1]) {
+                                case 1:
+                                    offset += getInt(nbt, offset);
+                                case 2:
+                                    offset += 2 * getInt(nbt, offset);
+                                case 3:
+                                    offset += 4 * getInt(nbt, offset);
+                                case 4:
+                                    offset += 8 * getInt(nbt, offset);
+                                case 5:
+                                    offset += 4 * getInt(nbt, offset);
+                                case 6:
+                                    offset += 8 * getInt(nbt, offset);
+                                case 7:
+                                    offset += getInt(nbt, offset);
+                                case 8:
+                                    getName(nbt, offset);
+                                    getName(nbt, offset);
+                                case 9:
+
+                                case 10:
+                                    offset += 3;
+                                    getNextTag(nbt, 0, offset);
+                                    offset += 1;
+                                case 11:
+                                    getName(nbt, offset);
+                                    offset += getInt(nbt, offset) * 4;
+                                case 12:
+                                    getName(nbt, offset);
+                                    offset += getInt(nbt, offset) * 8;
+
+                        }
                     case 10:
-                        std::cout << "2";
+                        offset += 3;
+                        getNextTag(nbt, 0, offset);
+                        offset += 1;
                     case 11:
-                        std::cout << "1";
+                        getName(nbt, offset);
+                        offset += getInt(nbt, offset) * 4;
                     case 12:
-                        std::cout << "2";
+                        getName(nbt, offset);
+                        offset += getInt(nbt, offset) * 8;
 
                 }
             }
@@ -90,7 +124,7 @@ namespace nbt {
 
         if(Hexes[0] == 10 && Hexes[1] == 0 && Hexes[2] == 0 && Hexes[Hexes.size() - 1] == 0) {
             int repeat = 0;
-            while(repeat <= 3) {
+            while(repeat <= 2) {
                 Hexes.erase(Hexes.begin());
                 repeat++;
             }
@@ -111,7 +145,7 @@ namespace nbt {
             }
         }
 
-        offset = internal::getNextTag(nbt, offset, 8);
+        offset = internal::getNextTag(nbt, 8, offset);
         return internal::getName(nbt, offset);
     }
 }
