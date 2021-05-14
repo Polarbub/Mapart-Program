@@ -1,4 +1,4 @@
-# Mapart-Program
+# NBT library
 
 This is a wip for a high level nbt lib
 
